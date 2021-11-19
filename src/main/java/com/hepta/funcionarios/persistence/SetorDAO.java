@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.persistence.EntityManager;
+
 import com.hepta.funcionarios.entity.Setor;
 
 public class SetorDAO {
@@ -15,78 +17,115 @@ public class SetorDAO {
     Connection con = null;
     PreparedStatement pstm = null;
     Scanner leitor = new Scanner(System.in);
+    private EntityManager em;
     
-  //Buscar setor
-    public List<Setor> buscarSetor() {
-        List<Setor> listaSetor = new ArrayList<Setor>();
-        Setor setor = new Setor();
+    public void FilmeDaoImpl(EntityManager em) {
+        this.em = em;
+    }
+    
+    // Inserir setor
+    public Setor inserirSetor(Setor setor) {
         
         try {
             con = MysqldbConnect.createMySQLConnection();
             
-            String query = "SELECT S.ID_SETOR, S.NOME_SETOR FROM SETOR AS S;";
+            String query = "INSERT INTO SETOR (NOME_SETOR) VALUES (?);";
             
+            pstm = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            
+            pstm.setString(1, setor.getNomeSetor());
+            
+            pstm.execute();
+            ResultSet result = pstm.getGeneratedKeys();
+            while(result.next()) {
+              setor.setIdSetor(result.getInt(1));
+            }
+            
+            con.close();
+            pstm.close();
+            
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            
+        }
+        
+        return(setor);
+
+    }
+
+    //Lista de Setores
+    private List<Setor> buscarSetores(String query){
+        List<Setor> setores = new ArrayList<>();
+        
+        try {
+            con = MysqldbConnect.createMySQLConnection();
+
             Statement stmt = con.createStatement();
-            
             ResultSet rs = stmt.executeQuery(query);
             
             while (rs.next()) {
-                Setor setor1 = new Setor();
-                setor1.setIdSetor(rs.getInt("S.ID_SETOR"));
-                setor1.setNomeSetor(rs.getString("S.NOME_SETOR"));
-                setor1.add(listaSetor);
-                
-                //System.out.println(setor);
-                //System.out.println(setor.getIdSetor());
-                //System.out.println(setor.getNomeSetor());
-              }
+                int idsetor = rs.getInt("ID_SETOR");
+                String nomesetor = rs.getString("NOME_SETOR");
+                setores.add(new Setor(idsetor, nomesetor));
+            }
                
+            con.close();
+            stmt.close();
             
         } catch (Exception e) {
             e.printStackTrace();
         }
         
-        //System.out.println(listaSetor);
-        
-        return(listaSetor);
+        return(setores);
     }
     
-     // Inserir setor
-        public void inserirSetor(Setor setor) {
-            
-            try {
-                con = MysqldbConnect.createMySQLConnection();
-                
-                String query = "INSERT INTO SETOR (NOME) VALUES (?);";
-                
-                pstm = con.prepareStatement(query);
-                
-                pstm.setString(1, setor.getNomeSetor());
-                
-                pstm.execute();
-                
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                
-            }
+  //Buscar setores
+    public List<Setor> buscarTodosSetores() {
+        String query = "SELECT S.ID_SETOR, S.NOME_SETOR FROM SETOR AS S;";
+        List<Setor> result = buscarSetores(query);
+        
+        return(result);
+    }
     
+    
+      //Buscar setor
+        public Setor buscarSetor(Integer idsetor, String nomesetor) {
+            
+            String query = "SELECT S.ID_SETOR, S.NOME_SETOR FROM SETOR AS S WHERE 1 = 1";
+            
+            if(idsetor !=null && idsetor > 0) {
+                query = query + " AND S.ID_SETOR = " + idsetor;
+            }
+            
+            if(!nomesetor.isEmpty()) {
+                query = query + " AND S.NOME_SETOR = " + "'"+ nomesetor + "'";
+            }
+            
+            List<Setor> result = buscarSetores(query);
+            
+            if(result.isEmpty()) {
+                return(null);
+            }
+            
+            return(result.get(0));
         }
+    
         
      // Alterar setor
-        public void alterarSetor(Setor setor) {
+        public Setor alterarSetor(Setor setor) {
             
             try {
+                Integer idsetor = setor.getIdSetor();
+                
                 con = MysqldbConnect.createMySQLConnection();
                 
-                Integer id = 0;
-                id = setor.getIdSetor();
-                
-                String query = "UPDATE SETOR SET NOME_SETOR = ? WHERE ID_SETOR = "+ id +";";
+                String query = "UPDATE SETOR SET NOME_SETOR = ? WHERE ID_SETOR = ?;";
                 
                 pstm = con.prepareStatement(query);
                 
                 pstm.setString(1, setor.getNomeSetor());
+                pstm.setInt(2, idsetor);
                 
                 pstm.execute();
                 
@@ -95,29 +134,33 @@ public class SetorDAO {
                 e.printStackTrace();
                 
             }
+            
+            return(setor);
     
         }
         
      // Remover setor
-        public void removerSetor(Setor setor) {
+        public boolean removerSetor(Integer idsetor) {
+            boolean result = true;
             
             try {
                 con = MysqldbConnect.createMySQLConnection();
                 
-                Integer id = 0;
-                id = setor.getIdSetor();
-                
-                String query = "DELETE FROM SETOR AS F WHERE F.ID_SETOR = "+ id +";";
+                String query = "DELETE FROM SETOR AS F WHERE F.ID_SETOR = ?;";
                 
                 pstm = con.prepareStatement(query);
                 
-                pstm.execute();
+                pstm.setInt(1, idsetor);
+                
+                result = pstm.execute();
                 
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
                 
             }
+            
+            return(result);
     
         }
     

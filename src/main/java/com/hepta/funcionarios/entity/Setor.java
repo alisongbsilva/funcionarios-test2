@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@Entity
 public class Setor implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -19,7 +21,23 @@ public class Setor implements Serializable{
 
     @Column(name = "NOME_SETOR")
     private String nomesetor;
-
+    
+    //Construtor
+    public Setor() {
+        
+    }
+    
+    public Setor(String nomesetor) {
+       this.nomesetor = nomesetor;
+    }
+    
+    public Setor(Integer idsetor, String nomesetor) {
+        this.idsetor = idsetor;
+        this.nomesetor = nomesetor;
+     }
+    
+    
+    //Get/Set
     public Integer getIdSetor() {
         return idsetor;
     }

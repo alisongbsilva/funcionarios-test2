@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import com.hepta.funcionarios.entity.Funcionario;
 
-public class FuncionarioDAO {
+public class FuncionarioDAOImp {
     
     Connection con = null;
     PreparedStatement pstm = null;
@@ -49,7 +49,7 @@ public class FuncionarioDAO {
         try {
             con = MysqldbConnect.createMySQLConnection();
             
-            String query = "INSERT INTO FUNCIONARIO (NOME, SALARIO, EMAIL, IDADE) VALUES (?, ?, ?, ?);";
+            String query = "INSERT INTO FUNCIONARIO (NOME, SALARIO, EMAIL, IDADE) VALUES (?, ?, ?, ?)";
             
             pstm = con.prepareStatement(query);
             

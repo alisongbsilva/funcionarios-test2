@@ -38,6 +38,21 @@ public class Funcionario implements Serializable {
     @JoinColumn (name= "FK_SETOR")
     private Setor setor;
     
+    //Construtor
+    public Funcionario() {
+        
+    }
+    
+    public Funcionario(String nome, Double salario, String email, Integer idade, Setor setor) {
+        this.nome = nome;
+        this.salario = salario;
+        this.email = email;
+        this.idade = idade;
+        this.setor = setor;
+    }
+    
+    
+    // Get/Set
     public Integer getId() {
         return id;
     }

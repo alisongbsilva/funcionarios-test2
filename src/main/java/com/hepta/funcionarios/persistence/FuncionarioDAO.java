@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import com.hepta.funcionarios.entity.Funcionario;
 
-public class FuncionarioDAOImp {
+public class FuncionarioDAO {
     
     Connection con = null;
     PreparedStatement pstm = null;

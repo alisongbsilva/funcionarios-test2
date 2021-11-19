@@ -17,6 +17,7 @@ public class SetorDAO {
     Connection con = null;
     PreparedStatement pstm = null;
     Scanner leitor = new Scanner(System.in);
+    @SuppressWarnings("unused")
     private EntityManager em;
     
     public void FilmeDaoImpl(EntityManager em) {

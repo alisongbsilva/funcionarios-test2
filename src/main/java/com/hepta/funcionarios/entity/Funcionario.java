@@ -53,7 +53,7 @@ public class Funcionario implements Serializable {
     
     
     // Get/Set
-    public Integer getId() {
+    public Integer getIdFuncionario() {
         return id;
     }
 
@@ -61,7 +61,7 @@ public class Funcionario implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
+    public String getNomeFuncionario() {
         return nome;
     }
 

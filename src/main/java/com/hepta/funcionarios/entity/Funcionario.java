@@ -20,10 +20,10 @@ public class Funcionario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_FUNCIONARIO")
-    private Integer id;
+    private Integer idfuncionario;
     
     @Column(name = "NOME")
-    private String nome;
+    private String nomefuncionario;
     
     @Column(name = "SALARIO")
     private Double salario;
@@ -36,37 +36,51 @@ public class Funcionario implements Serializable {
     
     @ManyToOne 
     @JoinColumn (name= "FK_SETOR")
-    private Setor setor;
+    private Integer setorid;
     
     //Construtor
     public Funcionario() {
         
     }
     
-    public Funcionario(String nome, Double salario, String email, Integer idade, Setor setor) {
-        this.nome = nome;
+    public Funcionario(Integer idfuncionario,String nomefuncionario) {
+        this.idfuncionario = idfuncionario;
+        this.nomefuncionario = nomefuncionario;
+    }
+    
+    public Funcionario(Integer idfuncionario,String nomefuncionario, Double salario, String email, Integer idade, Integer setorid) {
+        this.idfuncionario = idfuncionario;
+        this.nomefuncionario = nomefuncionario;
         this.salario = salario;
         this.email = email;
         this.idade = idade;
-        this.setor = setor;
+        this.setorid = setorid;
     }
+    
+    /*public Funcionario(String nomefuncionario, Double salario, String email, Integer idade, Integer setorid) {
+        this.nomefuncionario = nomefuncionario;
+        this.salario = salario;
+        this.email = email;
+        this.idade = idade;
+        this.setorid = setorid;
+    }*/
     
     
     // Get/Set
     public Integer getIdFuncionario() {
-        return id;
+        return idfuncionario;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdFuncionario(Integer idfuncionario) {
+        this.idfuncionario = idfuncionario;
     }
 
     public String getNomeFuncionario() {
-        return nome;
+        return nomefuncionario;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeFuncionario(String nomefuncionario) {
+        this.nomefuncionario = nomefuncionario;
     }
 
     public Double getSalario() {
@@ -93,12 +107,12 @@ public class Funcionario implements Serializable {
         this.idade = idade;
     }
     
-    public Setor getSetor() {
-        return setor;
+    public Integer getSetorID() {
+        return setorid;
     }
 
-    public void setSetor(Setor setor) {
-        this.setor = setor;
+    public void setSetorID(Integer setorid) {
+        this.setorid = setorid;
     }
 
 }

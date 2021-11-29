@@ -34,8 +34,6 @@ public class Funcionario implements Serializable {
     @Column (name = "IDADE")
     private Integer idade;
     
-    @ManyToOne 
-    @JoinColumn (name= "FK_SETOR")
     private Integer setorid;
     
     //Construtor

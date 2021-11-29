@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 
 //Classe funcionário e seus GET/SET
@@ -34,6 +32,7 @@ public class Funcionario implements Serializable {
     @Column (name = "IDADE")
     private Integer idade;
     
+    @Column (name = "FK_SETOR")
     private Integer setorid;
     
     //Construtor

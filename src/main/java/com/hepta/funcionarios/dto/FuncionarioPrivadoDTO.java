@@ -6,21 +6,24 @@ import com.hepta.funcionarios.entity.Funcionario;
 import com.hepta.funcionarios.entity.Setor;
 import com.hepta.funcionarios.persistence.SetorDAO;
 
-public class FuncionarioDTO {
+public class FuncionarioPrivadoDTO {
     private Integer idfuncionario;
     private String nomefuncionario;
     private String nomesetor;
+    private Double salario;
+    private String email;
+    private Integer idade;
     
-    public FuncionarioDTO() {
+    public FuncionarioPrivadoDTO() {
         
     }
     
-    public FuncionarioDTO(Integer idFuncionario, String nomeFuncionario) {
+    public FuncionarioPrivadoDTO(Integer idFuncionario, String nomeFuncionario) {
         this.idfuncionario = idFuncionario;
         this.nomefuncionario = nomeFuncionario;
     }
     
-    public FuncionarioDTO(Funcionario funcionario) {
+    public FuncionarioPrivadoDTO(Funcionario funcionario) {
         SetorDAO setorDAO = new SetorDAO();
         Integer setorid = funcionario.getSetorID();
         Setor setor = setorDAO.buscarSetor(setorid, "");
@@ -30,6 +33,9 @@ public class FuncionarioDTO {
         this.idfuncionario = funcionario.getIdFuncionario();
         this.nomefuncionario = funcionario.getNomeFuncionario();
         this.nomesetor = setor.getNomeSetor();
+        this.salario = funcionario.getSalario();
+        this.email = funcionario.getEmail();
+        this.idade = funcionario.getIdade();
     }
     
     public Integer getIdfuncionario() {
@@ -53,9 +59,33 @@ public class FuncionarioDTO {
         this.nomesetor = nomesetor;
     }
 
+    public Double getSalario() {
+        return salario;
+    }
+
+    public void setSalario(Double salario) {
+        this.salario = salario;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Integer getIdade() {
+        return idade;
+    }
+
+    public void setIdade(Integer idade) {
+        this.idade = idade;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(idfuncionario, nomefuncionario, nomesetor);
+        return Objects.hash(idfuncionario, nomefuncionario, nomesetor, salario, email, idade);
     }
     @Override
     public boolean equals(Object obj) {
@@ -65,13 +95,15 @@ public class FuncionarioDTO {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        FuncionarioDTO other = (FuncionarioDTO) obj;
+        FuncionarioPrivadoDTO other = (FuncionarioPrivadoDTO) obj;
         return Objects.equals(idfuncionario, other.idfuncionario) && Objects.equals(nomefuncionario, other.nomefuncionario)
-                && Objects.equals(nomesetor, other.nomesetor);
+                && Objects.equals(nomesetor, other.nomesetor) && Objects.equals(salario, other.salario) && Objects.equals(email, other.email) && Objects.equals(idade, other.idade);
     }
     
     @Override
     public String toString() {
-        return "FuncionarioDTO [idfuncionario=" + idfuncionario + ", nomefuncionario=" + nomefuncionario + ", nomesetor=" + nomesetor + "]";
+        return "FuncionarioDTO [idfuncionario=" + idfuncionario + ", nomefuncionario=" + nomefuncionario + ", nomesetor=" + nomesetor + ", salario=" + salario +  ", email=" + email +  ", idade=" + idade + "]";
     }
+    
+    
 }

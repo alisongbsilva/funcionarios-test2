@@ -88,8 +88,6 @@ class FuncionarioDAOTest {
         
     }
     
-    
-    
     @Test
     @Order(5)
     void testRemoverFuncionario() {
@@ -103,6 +101,20 @@ class FuncionarioDAOTest {
         
         //Asserts
         assertEquals(expected, result);
+        
+    }
+    
+    @Test
+    @Order(6)
+    void testBuscarFuncionarioId() {
+        //Arrange
+        String expected = "Renata";
+        
+        //Act
+        Funcionario funcionariotest = funcionarioDAO.buscarFuncionario(2, "");
+        
+        //Asserts
+        assertEquals(expected, funcionariotest.getNomeFuncionario());
         
     }
 

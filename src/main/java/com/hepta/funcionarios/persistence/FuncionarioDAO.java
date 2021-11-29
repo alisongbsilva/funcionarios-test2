@@ -64,7 +64,12 @@ public class FuncionarioDAO {
             while (rs.next()) {
                 int idfuncionario = rs.getInt("ID_FUNCIONARIO");
                 String nomefuncionario = rs.getString("NOME");
-                funcionarios.add(new Funcionario(idfuncionario, nomefuncionario));
+                Double salario = rs.getDouble("SALARIO");
+                String email = rs.getString("EMAIL");
+                Integer idade = rs.getInt("IDADE");
+                Integer setorid = rs.getInt("FK_SETOR");
+                
+                funcionarios.add(new Funcionario(idfuncionario, nomefuncionario, salario, email, idade, setorid));
             }
             
             con.close();
@@ -90,10 +95,10 @@ public class FuncionarioDAO {
     //Buscar funcionário
     public Funcionario buscarFuncionario(Integer idfuncionario, String nomefuncionario) {
             
-        String query = "SELECT F.ID_FUNCIONARIO, F.NOME, S.NOME_SETOR, F.SALARIO, F.EMAIL, F.IDADE FROM FUNCIONARIO AS F JOIN SETOR AS S ON F.FK_SETOR = S.ID_SETOR WHERE 1 = 1";
+        String query = "SELECT F.ID_FUNCIONARIO, F.NOME, F.SALARIO, F.EMAIL, F.IDADE, F.FK_SETOR FROM FUNCIONARIO AS F WHERE 1 = 1";
         
         if(idfuncionario != null && idfuncionario > 0) {
-            query = query + "AND F.ID_FUNCIONARIO = " + "'" + idfuncionario + "'";
+            query = query + " AND F.ID_FUNCIONARIO = " + idfuncionario;
         }
         
         if(!nomefuncionario.isEmpty()) {

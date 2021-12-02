@@ -121,7 +121,7 @@ public class FuncionarioDAO {
             try {
                 con = MysqldbConnect.createMySQLConnection();
                 
-                String query = "UPDATE FUNCIONARIO SET NOME = ?, SALARIO = ?, EMAIL = ?, IDADE = ? WHERE ID_FUNCIONARIO = ?;";
+                String query = "UPDATE FUNCIONARIO SET NOME = ?, SALARIO = ?, EMAIL = ?, IDADE = ?, FK_SETOR = ? WHERE ID_FUNCIONARIO = ?;";
                 
                 pstm = con.prepareStatement(query);
                 
@@ -129,7 +129,8 @@ public class FuncionarioDAO {
                 pstm.setDouble(2, funcionario.getSalario());
                 pstm.setString(3, funcionario.getEmail());
                 pstm.setInt(4, funcionario.getIdade());
-                pstm.setInt(5, funcionario.getIdFuncionario());
+                pstm.setInt(5, funcionario.getSetorID());
+                pstm.setInt(6, funcionario.getIdFuncionario());
                 
                 pstm.execute();
                 

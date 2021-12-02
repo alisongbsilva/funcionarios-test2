@@ -38,24 +38,29 @@ public class FuncionarioPrivadoDTO {
         this.idade = funcionario.getIdade();
     }
     
+    
+
     public Integer getIdfuncionario() {
         return idfuncionario;
     }
+
     public void setIdfuncionario(Integer idfuncionario) {
         this.idfuncionario = idfuncionario;
     }
+
     public String getNomefuncionario() {
         return nomefuncionario;
     }
+
     public void setNomefuncionario(String nomefuncionario) {
         this.nomefuncionario = nomefuncionario;
     }
-    
-    public String getNomeSetor() {
+
+    public String getNomesetor() {
         return nomesetor;
     }
 
-    public void setNomeSetor(String nomesetor) {
+    public void setNomesetor(String nomesetor) {
         this.nomesetor = nomesetor;
     }
 
@@ -103,6 +108,17 @@ public class FuncionarioPrivadoDTO {
     @Override
     public String toString() {
         return "FuncionarioDTO [idfuncionario=" + idfuncionario + ", nomefuncionario=" + nomefuncionario + ", nomesetor=" + nomesetor + ", salario=" + salario +  ", email=" + email +  ", idade=" + idade + "]";
+    }
+    
+    public Funcionario toFuncionario() {
+        Funcionario funcionario = new Funcionario();
+        funcionario.setIdFuncionario(idfuncionario);
+        funcionario.setNomeFuncionario(nomefuncionario);
+        funcionario.setSalario(salario);
+        funcionario.setEmail(email);
+        funcionario.setIdade(idade);
+        
+        return funcionario;
     }
     
     

@@ -50,8 +50,8 @@ public class Setor implements Serializable{
         return nomesetor;
     }
 
-    public void setNomeSetor(String nomeSetor) {
-        this.nomesetor = nomeSetor;
+    public void setNomeSetor(String nomesetor) {
+        this.nomesetor = nomesetor;
     }
 
     public void add(List<Setor> listaSetor) {

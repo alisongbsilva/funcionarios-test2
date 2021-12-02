@@ -25,8 +25,6 @@ public class FuncionarioDTO {
         Integer setorid = funcionario.getSetorID();
         Setor setor = setorDAO.buscarSetor(setorid, "");
         
-        
-        
         this.idfuncionario = funcionario.getIdFuncionario();
         this.nomefuncionario = funcionario.getNomeFuncionario();
         this.nomesetor = setor.getNomeSetor();

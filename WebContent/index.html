@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
+    <title>Funcionários</title>
+  </head>
+  <body>
+    <div class="container">
+        <div class="row">
+          <h4>Funcionários</h4>
+          <div id="form" class="form-group">
+            <button class="btn btn-primary">Novo Funcionário</button>
+          </div>
+           <div class="form-group">
+              <table>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Setor</th>
+                    <th>Salário</th>
+                    <th>Email</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  <tbody>
+                      <tr>
+                          <td>{{ funcionario.nome }}</td>
+                          <td>{{ funcionario.setornome }}</td>
+                          <td>{{ funcionario.salario }}</td>
+                          <td>{{ funcionario.email }}</td>
+                          <td>{{ funcionario.idade }}</td>
+                      </tr>
+                  </tbody>
+              </table>
+           </div> 
+        </div>
+    </div>
+    <script src="resources/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

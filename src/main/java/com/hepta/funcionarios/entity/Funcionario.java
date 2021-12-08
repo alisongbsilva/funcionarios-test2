@@ -54,14 +54,6 @@ public class Funcionario implements Serializable {
         this.setorid = setorid;
     }
     
-    /*public Funcionario(String nomefuncionario, Double salario, String email, Integer idade, Integer setorid) {
-        this.nomefuncionario = nomefuncionario;
-        this.salario = salario;
-        this.email = email;
-        this.idade = idade;
-        this.setorid = setorid;
-    }*/
-    
     
     // Get/Set
     public Integer getIdFuncionario() {

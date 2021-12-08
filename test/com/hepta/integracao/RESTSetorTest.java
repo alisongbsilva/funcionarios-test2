@@ -2,10 +2,6 @@ package com.hepta.integracao;
 
 import static io.restassured.RestAssured.given;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.ListIterator;
-
 import javax.ws.rs.core.MediaType;
 
 import org.junit.jupiter.api.Assertions;
@@ -19,8 +15,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hepta.funcionarios.dto.SetorDTO;
-
-import io.restassured.response.Response;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(Lifecycle.PER_CLASS)
@@ -97,10 +91,7 @@ public class RESTSetorTest extends RESTIntegracao {
     @Order(4)
     void buscarSetoresTest() {
         
-        Integer id = this.setor.getIdsetor();
-        SetorDTO setorExpected = new SetorDTO();
-        
-        Response response = given()
+        given()
             .contentType(MediaType.APPLICATION_JSON)
         .when()
             .get(this.defaultPath)
@@ -109,17 +100,6 @@ public class RESTSetorTest extends RESTIntegracao {
             .log().body()
             .extract().response();
         
-        List<SetorDTO> setores = Arrays.asList(response.as(SetorDTO[].class));
-                  
-        for(ListIterator<SetorDTO> i = setores.listIterator(); i.hasNext(); ) {
-            SetorDTO setorReturn = i.next();
-            if (setorReturn.getIdsetor() == id) {
-                setorExpected = setorReturn;
-            }
-            
-        }
-        
-        Assertions.assertEquals("Alterar_Setor_Teste", setorExpected.getNomesetor());
     }
     
     @Test

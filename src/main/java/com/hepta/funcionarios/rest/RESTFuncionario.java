@@ -37,7 +37,7 @@ public class RESTFuncionario {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response buscarFuncionarios() {
+    public Response BuscarFuncionarios() {
         
         List<FuncionarioDTO> funcionarios = service.buscarFuncionarios();
         
@@ -48,7 +48,7 @@ public class RESTFuncionario {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response buscarFuncionario(@PathParam("id") Integer id) {
+    public Response BuscarFuncionario(@PathParam("id") Integer id) {
         String nome = "";
         
         FuncionarioDTO funcionarioDTO =  service.buscarFuncionario(id, nome);
@@ -59,7 +59,7 @@ public class RESTFuncionario {
     @GET
     @Path("/p/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response buscarFuncionarioPrivado(@PathParam("id") Integer id) {
+    public Response BuscarFuncionarioPrivado(@PathParam("id") Integer id) {
         String nome  = "";
         
         FuncionarioPrivadoDTO funcionarioPrivadoDTO = service.buscarFuncionarioPrivado(id, nome);
@@ -82,7 +82,7 @@ public class RESTFuncionario {
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response RemoverFuncionario(@PathParam("id") Integer id, FuncionarioPrivadoDTO funcionarioPDTO) {
+    public Response RemoverFuncionario(@PathParam("id") Integer id) {
         
         boolean result = service.removerFuncionario(id);
         

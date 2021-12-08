@@ -46,7 +46,7 @@ public class Setor implements Serializable{
         this.idsetor = idSetor;
     }
 
-    public String getNomeSetor() {
+    public String getNomesetor() {
         return nomesetor;
     }
 

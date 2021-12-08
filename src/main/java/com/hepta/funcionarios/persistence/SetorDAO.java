@@ -34,7 +34,7 @@ public class SetorDAO {
             
             pstm = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
-            pstm.setString(1, setor.getNomeSetor());
+            pstm.setString(1, setor.getNomesetor());
             
             pstm.execute();
             ResultSet result = pstm.getGeneratedKeys();
@@ -125,7 +125,7 @@ public class SetorDAO {
                 
                 pstm = con.prepareStatement(query);
                 
-                pstm.setString(1, setor.getNomeSetor());
+                pstm.setString(1, setor.getNomesetor());
                 pstm.setInt(2, idsetor);
                 
                 pstm.execute();
@@ -164,5 +164,5 @@ public class SetorDAO {
             return(result);
     
         }
-    
+
 }

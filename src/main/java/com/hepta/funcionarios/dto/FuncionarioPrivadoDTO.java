@@ -32,12 +32,11 @@ public class FuncionarioPrivadoDTO {
         
         this.idfuncionario = funcionario.getIdFuncionario();
         this.nomefuncionario = funcionario.getNomeFuncionario();
-        this.nomesetor = setor.getNomeSetor();
+        this.nomesetor = setor.getNomesetor();
         this.salario = funcionario.getSalario();
         this.email = funcionario.getEmail();
         this.idade = funcionario.getIdade();
     }
-    
     
 
     public Integer getIdfuncionario() {

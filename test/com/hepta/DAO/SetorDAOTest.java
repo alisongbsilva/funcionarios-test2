@@ -1,4 +1,4 @@
-package com.hepta.setor.DAO;
+package com.hepta.DAO;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -61,7 +61,7 @@ public class SetorDAOTest {
         Setor result = setorDAO.alterarSetor(setor);
         
         //Asserts
-        assertEquals(expected, result.getNomeSetor());
+        assertEquals(expected, result.getNomesetor());
         
         
     }
@@ -76,7 +76,7 @@ public class SetorDAOTest {
         Setor setor = setorDAO.buscarSetor(null, expected);
         
         //Asserts
-        assertEquals(expected, setor.getNomeSetor());
+        assertEquals(expected, setor.getNomesetor());
         
     }
 

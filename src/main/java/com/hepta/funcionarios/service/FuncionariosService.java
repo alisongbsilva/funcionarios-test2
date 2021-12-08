@@ -29,7 +29,7 @@ public class FuncionariosService {
         return (dtoRetornado);
     }
 
-    public List<FuncionarioDTO> buscarFuncionarios () {
+    public List<FuncionarioDTO> buscarFuncionarios() {
         
         List<FuncionarioDTO> funcionariosDTO = new ArrayList<>();
         List<Funcionario> funcionarios = dao.buscarTodosFuncionarios();

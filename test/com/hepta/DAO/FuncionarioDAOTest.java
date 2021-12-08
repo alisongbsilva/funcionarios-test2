@@ -1,4 +1,4 @@
-package com.hepta.setor.DAO;
+package com.hepta.DAO;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

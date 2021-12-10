@@ -3,8 +3,6 @@ package com.hepta.funcionarios.dto;
 import java.util.Objects;
 
 import com.hepta.funcionarios.entity.Funcionario;
-import com.hepta.funcionarios.entity.Setor;
-import com.hepta.funcionarios.persistence.SetorDAO;
 
 public class FuncionarioDTO {
     private Integer idfuncionario;
@@ -15,21 +13,16 @@ public class FuncionarioDTO {
         
     }
     
-    public FuncionarioDTO(Integer idFuncionario, String nomeFuncionario) {
+    public FuncionarioDTO(Integer idFuncionario) {
         this.idfuncionario = idFuncionario;
-        this.nomefuncionario = nomeFuncionario;
     }
     
     public FuncionarioDTO(Funcionario funcionario) {
-        SetorDAO setorDAO = new SetorDAO();
-        Integer setorid = funcionario.getSetorID();
-        Setor setor = setorDAO.buscarSetor(setorid, "");
-        
         this.idfuncionario = funcionario.getIdFuncionario();
         this.nomefuncionario = funcionario.getNomeFuncionario();
-        this.nomesetor = setor.getNomesetor();
+        
     }
-
+    
     public Integer getIdfuncionario() {
         return idfuncionario;
     }

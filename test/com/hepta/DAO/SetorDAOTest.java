@@ -7,8 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import com.hepta.funcionarios.entity.Setor;
@@ -16,10 +18,11 @@ import com.hepta.funcionarios.persistence.SetorDAO;
 
 
 @TestMethodOrder(OrderAnnotation.class)
+@TestInstance(Lifecycle.PER_CLASS)
 public class SetorDAOTest {
     
     private SetorDAO setorDAO = new SetorDAO();
-    
+    private Setor setor = new Setor();
     
     @Test
     @Order(1)
@@ -30,10 +33,10 @@ public class SetorDAOTest {
         
         
         //Act
-        Setor result = setorDAO.inserirSetor(setortest);
+        this.setor = setorDAO.inserirSetor(setortest);
         
         //Asserts
-        assertTrue(result.getIdSetor() > 0);
+        assertTrue(this.setor.getIdSetor() > 0);
          
     }
     
@@ -52,16 +55,14 @@ public class SetorDAOTest {
     @Order(3)
     void testAlterarSetor() {
         //Arrange
-        String nomesetor = "Teste_Inserir_Setor";
-        Setor setor = setorDAO.buscarSetor(null, nomesetor);
-        String expected = "Teste_Alterar_Setor";
-        setor.setNomeSetor(expected);
+        Setor setorexpected = this.setor;
+        setorexpected.setNomeSetor("Teste_Alterar_Setor");
         
         //Act
-        Setor result = setorDAO.alterarSetor(setor);
+        this.setor = setorDAO.alterarSetor(setorexpected);
         
         //Asserts
-        assertEquals(expected, result.getNomesetor());
+        assertEquals(setorexpected.getNomesetor(), this.setor.getNomesetor());
         
         
     }
@@ -69,14 +70,11 @@ public class SetorDAOTest {
     @Test
     @Order(4)
     void testBuscarSetor() {
-        //Arrange
-        String expected = "Teste_Alterar_Setor";
-        
         //Act
-        Setor setor = setorDAO.buscarSetor(null, expected);
+        Setor setorexpected = setorDAO.buscarSetor(this.setor.getIdSetor());
         
         //Asserts
-        assertEquals(expected, setor.getNomesetor());
+        assertEquals(setorexpected.getNomesetor(), this.setor.getNomesetor());
         
     }
 
@@ -84,11 +82,10 @@ public class SetorDAOTest {
     @Order(5)
     void testRemoverSetor() {
       //Arrange
-        Setor setor = setorDAO.buscarSetor(null, "Teste_Alterar_Setor");
         boolean expected = false;
         
         //Act
-        boolean result = setorDAO.removerSetor(setor.getIdSetor());
+        boolean result = setorDAO.removerSetor(this.setor.getIdSetor());
         
         //Asserts
         assertEquals(expected, result);

@@ -14,17 +14,17 @@ import com.hepta.funcionarios.persistence.SetorDAO;
 public class FuncionariosService {
     
     FuncionarioDAO dao = new FuncionarioDAO();
+    SetorDAO setorDAO = new SetorDAO();
     
     public FuncionarioDTO inserirFuncionario(FuncionarioPrivadoDTO funcionarioPDTO) {
         
         Funcionario funcionario = funcionarioPDTO.toFuncionario();
-        SetorDAO setorDAO = new SetorDAO();
-        Setor setor = setorDAO.buscarSetor(null, funcionarioPDTO.getNomesetor());
-        
-        funcionario.setSetorID(setor.getIdSetor());
         Funcionario funcionarioRetornado = dao.inserirFuncionario(funcionario);
         
+        Setor setor = setorDAO.buscarSetor(funcionarioRetornado.getSetorID());
+        
         FuncionarioDTO dtoRetornado = new FuncionarioDTO(funcionarioRetornado);
+        dtoRetornado.setNomesetor(setor.getNomesetor());
         
         return (dtoRetornado);
     }
@@ -35,24 +35,20 @@ public class FuncionariosService {
         List<Funcionario> funcionarios = dao.buscarTodosFuncionarios();
         
         funcionarios.forEach(funcionario -> {
-            funcionariosDTO.add(new FuncionarioDTO(funcionario));
+            FuncionarioDTO funcionarioDTO = new FuncionarioDTO();
+            funcionariosDTO.add(funcionarioDTO = new FuncionarioDTO(funcionario));
+            Setor setor = setorDAO.buscarSetor(funcionario.getSetorID());
+            funcionarioDTO.setNomesetor(setor.getNomesetor());
+            
         });
         
         
         return funcionariosDTO;
     }
     
-    public FuncionarioDTO buscarFuncionario (Integer idfuncionario, String nomefuncionario) {
+    public FuncionarioPrivadoDTO buscarFuncionario (Integer idfuncionario) {
         
-        Funcionario funcionario = dao.buscarFuncionario(idfuncionario, nomefuncionario);
-        FuncionarioDTO funcionarioDTO = new FuncionarioDTO(funcionario);
-        
-        return funcionarioDTO;
-    }
-    
-    public FuncionarioPrivadoDTO buscarFuncionarioPrivado (Integer idfuncionario, String nomefuncionario) {
-        
-        Funcionario funcionario = dao.buscarFuncionario(idfuncionario, nomefuncionario);
+        Funcionario funcionario = dao.buscarFuncionario(idfuncionario);
         FuncionarioPrivadoDTO funcionarioPrivadoDTO = new FuncionarioPrivadoDTO(funcionario);
         
         return funcionarioPrivadoDTO;
@@ -60,14 +56,12 @@ public class FuncionariosService {
     }
     
     public FuncionarioDTO alterarFuncionario(FuncionarioPrivadoDTO funcionarioPDTO) {
-        Funcionario funcionario = funcionarioPDTO.toFuncionario();
-        SetorDAO setorDAO = new SetorDAO();
-        Setor setor = setorDAO.buscarSetor(null, funcionarioPDTO.getNomesetor());
-
-        funcionario.setSetorID(setor.getIdSetor());
+        Funcionario funcionario = funcionarioPDTO.toFuncionario();        
         Funcionario funcionarioRetornado = dao.alterarFuncionario(funcionario);
         
         FuncionarioDTO dtoRetornado = new FuncionarioDTO(funcionarioRetornado);
+        Setor setor = setorDAO.buscarSetor(funcionarioRetornado.getSetorID());
+        dtoRetornado.setNomesetor(setor.getNomesetor());
         
         return (dtoRetornado);
     }

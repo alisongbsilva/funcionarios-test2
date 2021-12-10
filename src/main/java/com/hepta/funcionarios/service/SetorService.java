@@ -29,9 +29,9 @@ public class SetorService {
         return setoresDTO;
     }
     
-    public SetorDTO buscarSetor(Integer idsetor, String nomesetor) {
+    public SetorDTO buscarSetor(Integer idsetor) {
         
-        Setor setor = dao.buscarSetor(idsetor, nomesetor);
+        Setor setor = dao.buscarSetor(idsetor);
         SetorDTO setorDTO = new SetorDTO(setor);
         
         return setorDTO;

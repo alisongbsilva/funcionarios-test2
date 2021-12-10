@@ -7,8 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import com.hepta.funcionarios.entity.Funcionario;
@@ -17,9 +19,11 @@ import com.hepta.funcionarios.persistence.FuncionarioDAO;
 import com.hepta.funcionarios.persistence.SetorDAO;
 
 @TestMethodOrder(OrderAnnotation.class)
+@TestInstance(Lifecycle.PER_CLASS)
 class FuncionarioDAOTest {
     private SetorDAO setorDAO = new SetorDAO();
     private FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    private Funcionario funcionario = new Funcionario();
 
     @Test
     @Order(1)
@@ -29,14 +33,15 @@ class FuncionarioDAOTest {
         Double salario = (double) 100000;
         String email = "inserirfuncionario@test.com";
         Integer idade = 100;
-        Setor setor = setorDAO.buscarSetor(null, "Desenvolvimento");
+        Setor setor = setorDAO.buscarSetor(1);
         Funcionario funcionariotest = new Funcionario(null, nomefuncionario, salario, email, idade, setor.getIdSetor());
         
         //Act
-        Funcionario result = funcionarioDAO.inserirFuncionario(funcionariotest);
+        this.funcionario = funcionarioDAO.inserirFuncionario(funcionariotest);
+        
         
         //Asserts
-        assertTrue(result.getIdFuncionario() > 0);
+        assertTrue(this.funcionario.getIdFuncionario() > 0);
         
     }
     
@@ -55,13 +60,13 @@ class FuncionarioDAOTest {
     @Order(3)
     void testAlterarFuncionario() {
         //Arrange
-        Funcionario funcionariotest = funcionarioDAO.buscarFuncionario(null, "Teste_Inserir_Funcionario");
+        Funcionario funcionariotest = this.funcionario;
         String expected = "Teste_Alterar_Funcionario";
         funcionariotest.setNomeFuncionario(expected);
         funcionariotest.setSalario((double) 99999);
         funcionariotest.setEmail("alterarfuncionario@test.com");
         funcionariotest.setIdade(99);
-        Setor setor = setorDAO.buscarSetor(null, "Suporte");
+        Setor setor = setorDAO.buscarSetor(2);
         funcionariotest.setSetorID(setor.getIdSetor());
         
         
@@ -79,9 +84,10 @@ class FuncionarioDAOTest {
     void testBuscarFuncionario() {
         //Arrange
         String expected = "Teste_Alterar_Funcionario";
+        Integer lastid = this.funcionario.getIdFuncionario();
         
         //Act
-        Funcionario funcionariotest = funcionarioDAO.buscarFuncionario(null, expected);
+        Funcionario funcionariotest = funcionarioDAO.buscarFuncionario(lastid);
         
         //Asserts
         assertEquals(expected, funcionariotest.getNomeFuncionario());
@@ -92,8 +98,7 @@ class FuncionarioDAOTest {
     @Order(5)
     void testRemoverFuncionario() {
         //Arrange
-        String nomeFuncionario = "Teste_Alterar_Funcionario";
-        Funcionario funcionariotest = funcionarioDAO.buscarFuncionario(null, nomeFuncionario);
+        Funcionario funcionariotest = this.funcionario;
         boolean expected = false;
         
         //Act
@@ -101,20 +106,6 @@ class FuncionarioDAOTest {
         
         //Asserts
         assertEquals(expected, result);
-        
-    }
-    
-    @Test
-    @Order(6)
-    void testBuscarFuncionarioId() {
-        //Arrange
-        String expected = "Renata";
-        
-        //Act
-        Funcionario funcionariotest = funcionarioDAO.buscarFuncionario(2, "");
-        
-        //Asserts
-        assertEquals(expected, funcionariotest.getNomeFuncionario());
         
     }
 

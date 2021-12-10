@@ -1,7 +1,5 @@
 package com.hepta.funcionarios.rest;
 
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -39,30 +37,16 @@ public class RESTFuncionario {
     @Produces(MediaType.APPLICATION_JSON)
     public Response BuscarFuncionarios() {
         
-        List<FuncionarioDTO> funcionarios = service.buscarFuncionarios();
-        
-        return Response.ok(funcionarios).build();
+        return Response.ok(service.buscarFuncionarios()).build();
         
     }
-    
+
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response BuscarFuncionario(@PathParam("id") Integer id) {
-        String nome = "";
         
-        FuncionarioDTO funcionarioDTO =  service.buscarFuncionario(id, nome);
-        
-        return Response.ok(funcionarioDTO).build();
-    }
-    
-    @GET
-    @Path("/p/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response BuscarFuncionarioPrivado(@PathParam("id") Integer id) {
-        String nome  = "";
-        
-        FuncionarioPrivadoDTO funcionarioPrivadoDTO = service.buscarFuncionarioPrivado(id, nome);
+        FuncionarioPrivadoDTO funcionarioPrivadoDTO = service.buscarFuncionario(id);
         
         return Response.ok(funcionarioPrivadoDTO).build();
         

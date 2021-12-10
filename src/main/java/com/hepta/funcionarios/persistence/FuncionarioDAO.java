@@ -93,17 +93,9 @@ public class FuncionarioDAO {
     }
     
     //Buscar funcionário
-    public Funcionario buscarFuncionario(Integer idfuncionario, String nomefuncionario) {
+    public Funcionario buscarFuncionario(Integer idfuncionario) {
             
-        String query = "SELECT F.ID_FUNCIONARIO, F.NOME, F.SALARIO, F.EMAIL, F.IDADE, F.FK_SETOR FROM FUNCIONARIO AS F WHERE 1 = 1";
-        
-        if(idfuncionario != null && idfuncionario > 0) {
-            query = query + " AND F.ID_FUNCIONARIO = " + idfuncionario;
-        }
-        
-        if(!nomefuncionario.isEmpty()) {
-            query = query + " AND F.NOME = " + "'" + nomefuncionario + "'";
-        }
+        String query = "SELECT F.ID_FUNCIONARIO, F.NOME, F.SALARIO, F.EMAIL, F.IDADE, F.FK_SETOR FROM FUNCIONARIO AS F WHERE F.ID_FUNCIONARIO = " + idfuncionario;
         
         List<Funcionario> result = buscarFuncionarios(query);
         

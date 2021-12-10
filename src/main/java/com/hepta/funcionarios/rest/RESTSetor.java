@@ -46,9 +46,8 @@ public class RESTSetor {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response BuscarSetor(@PathParam("id") Integer id) {
-        String nome = "";
         
-        SetorDTO dtoReturn = service.buscarSetor(id, nome);
+        SetorDTO dtoReturn = service.buscarSetor(id);
         
         return Response.ok(dtoReturn).build();
     }

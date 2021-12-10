@@ -91,18 +91,10 @@ public class SetorDAO {
     
     
       //Buscar setor
-        public Setor buscarSetor(Integer idsetor, String nomesetor) {
+        public Setor buscarSetor(Integer idsetor) {
             
-            String query = "SELECT S.ID_SETOR, S.NOME_SETOR FROM SETOR AS S WHERE 1 = 1";
-            
-            if(idsetor !=null && idsetor > 0) {
-                query = query + " AND S.ID_SETOR = " + idsetor;
-            }
-            
-            if(!nomesetor.isEmpty()) {
-                query = query + " AND S.NOME_SETOR = " + "'"+ nomesetor + "'";
-            }
-            
+            String query = "SELECT S.ID_SETOR, S.NOME_SETOR FROM SETOR AS S WHERE S.ID_SETOR = " + idsetor;
+
             List<Setor> result = buscarSetores(query);
             
             if(result.isEmpty()) {

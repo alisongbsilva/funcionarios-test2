@@ -30,7 +30,7 @@ public class RESTFuncionarioTest extends RESTIntegracao {
         funcionario.setSalario((double)50000);
         funcionario.setEmail("funcionario@test.com");
         funcionario.setIdade(27);
-        funcionario.setNomesetor("Desenvolvimento");
+        funcionario.setSetorid(1);
         
         ObjectMapper objectMapper = new ObjectMapper();
         
@@ -51,13 +51,12 @@ public class RESTFuncionarioTest extends RESTIntegracao {
         this.funcionario.setIdfuncionario(dtoReturn.getIdfuncionario());
         
         Assertions.assertEquals(funcionario.getNomefuncionario(), dtoReturn.getNomefuncionario());
-        Assertions.assertEquals(funcionario.getNomesetor(), dtoReturn.getNomesetor());
         
     }
     
     @Test
     @Order(2)
-    void buscarFuncionarioPrivadoTest() {
+    void buscarFuncionarioTest() {
         
         Integer id = this.funcionario.getIdfuncionario();
         FuncionarioPrivadoDTO funcionarioExpected = this.funcionario;
@@ -66,7 +65,7 @@ public class RESTFuncionarioTest extends RESTIntegracao {
             .contentType(MediaType.APPLICATION_JSON)
             .pathParam("idFuncionario", id)
         .when()
-            .get(this.defaultPath + "/p/{idFuncionario}")
+            .get(this.defaultPath + "/{idFuncionario}")
         .then()
             .statusCode(200)
             .log().body()
@@ -76,37 +75,11 @@ public class RESTFuncionarioTest extends RESTIntegracao {
         Assertions.assertEquals(funcionarioExpected.getSalario(), this.funcionario.getSalario());
         Assertions.assertEquals(funcionarioExpected.getEmail(), this.funcionario.getEmail());
         Assertions.assertEquals(funcionarioExpected.getIdade(), this.funcionario.getIdade());
-        Assertions.assertEquals(funcionarioExpected.getNomesetor(), this.funcionario.getNomesetor());
         
     }
-    
+
     @Test
     @Order(3)
-    void buscarFuncionarioTest() {
-        
-        Integer id = this.funcionario.getIdfuncionario();
-        FuncionarioDTO funcExpected = new FuncionarioDTO();
-        funcExpected.setIdfuncionario(id);
-        funcExpected.setNomefuncionario(this.funcionario.getNomefuncionario());
-        funcExpected.setNomesetor(this.funcionario.getNomesetor());
-        
-        funcExpected = given()
-            .contentType(MediaType.APPLICATION_JSON)
-            .pathParam("idFuncionario", id)
-        .when()
-            .get(this.defaultPath + "/{idFuncionario}")
-        .then()
-            .statusCode(200)
-            .log().body()
-            .extract().as(FuncionarioDTO.class);
-        
-        Assertions.assertEquals(this.funcionario.getNomefuncionario(), funcExpected.getNomefuncionario());
-        Assertions.assertEquals(this.funcionario.getNomesetor(), funcExpected.getNomesetor());
-        
-    }
-    
-    @Test
-    @Order(4)
     void alterarFuncionarioTest() throws JsonProcessingException {
         
         Integer id = this.funcionario.getIdfuncionario();
@@ -115,7 +88,7 @@ public class RESTFuncionarioTest extends RESTIntegracao {
         funcionarioSet.setSalario((double)95000);
         funcionarioSet.setEmail("funcionario250@test.com");
         funcionarioSet.setIdade(52);
-        funcionarioSet.setNomesetor("Suporte");
+        funcionarioSet.setSetorid(2);
         
         ObjectMapper objectMapper = new ObjectMapper();
         String funcionarioAsString = objectMapper.writeValueAsString(funcionarioSet);
@@ -133,13 +106,12 @@ public class RESTFuncionarioTest extends RESTIntegracao {
                 .as(FuncionarioDTO.class); 
             
             Assertions.assertEquals(this.funcionario.getNomefuncionario(), dtoReturn.getNomefuncionario());
-            Assertions.assertEquals(this.funcionario.getNomesetor(), dtoReturn.getNomesetor());
             
     }
     
     
     @Test
-    @Order(5)
+    @Order(4)
     void buscarFuncionariosTest() {
  
         given()
@@ -154,7 +126,7 @@ public class RESTFuncionarioTest extends RESTIntegracao {
     }
     
     @Test
-    @Order(6)
+    @Order(5)
     void removerFuncionarioTest() {
         
         Integer id = this.funcionario.getIdfuncionario();

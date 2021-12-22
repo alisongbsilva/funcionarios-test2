@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.hepta.funcionarios.dto.FuncionarioDTO;
 import com.hepta.funcionarios.entity.Funcionario;
 
 public class FuncionarioDAO {
@@ -84,11 +85,33 @@ public class FuncionarioDAO {
     }
     
     //Buscar Funcionarios
-    public List<Funcionario> buscarTodosFuncionarios() {
-        String query = "SELECT F.ID_FUNCIONARIO, F.NOME, F.SALARIO, F.EMAIL, F.IDADE, F.FK_SETOR FROM FUNCIONARIO AS F;";
-        List<Funcionario> result = buscarFuncionarios(query);
+    public List<FuncionarioDTO> buscarTodosFuncionarios() {
         
-        return(result);
+        String query = "SELECT F.ID_FUNCIONARIO, F.NOME, S.NOME_SETOR FROM FUNCIONARIO AS F INNER JOIN SETOR AS S WHERE F.FK_SETOR = S.ID_SETOR;";
+        List<FuncionarioDTO> funcionariosDTO = new ArrayList<>();
+        
+        try {
+            con = MysqldbConnect.createMySQLConnection();
+            
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            
+            while (rs.next()) {
+                int idfuncionario = rs.getInt("ID_FUNCIONARIO");
+                String nomefuncionario = rs.getString("NOME");
+                String nomesetor = rs.getString("NOME_SETOR");
+                
+                funcionariosDTO.add(new FuncionarioDTO(idfuncionario, nomefuncionario, nomesetor));
+            }
+            
+            con.close();
+            stmt.close();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return(funcionariosDTO);
         
     }
     

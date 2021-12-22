@@ -1,0 +1,25 @@
+.form-control, .form-select {
+    width: 50%;
+}
+
+.search {
+    display: inline-block;
+    position: relative;
+    align-self: auto;
+    width: 50%;
+}
+
+.search-select {
+    display: inline-block;
+    position: relative;
+    align-self: auto;
+    width: fit-content;
+}
+
+.btn-search {
+    display: inline-block;
+    position: relative;
+    align-self: auto;
+    width: fit-content;
+    vertical-align: unset;
+}

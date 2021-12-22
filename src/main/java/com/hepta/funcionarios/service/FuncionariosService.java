@@ -1,6 +1,5 @@
 package com.hepta.funcionarios.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.hepta.funcionarios.dto.FuncionarioDTO;
@@ -31,17 +30,7 @@ public class FuncionariosService {
 
     public List<FuncionarioDTO> buscarFuncionarios() {
         
-        List<FuncionarioDTO> funcionariosDTO = new ArrayList<>();
-        List<Funcionario> funcionarios = dao.buscarTodosFuncionarios();
-        
-        funcionarios.forEach(funcionario -> {
-            FuncionarioDTO funcionarioDTO = new FuncionarioDTO();
-            funcionariosDTO.add(funcionarioDTO = new FuncionarioDTO(funcionario));
-            Setor setor = setorDAO.buscarSetor(funcionario.getSetorID());
-            funcionarioDTO.setNomesetor(setor.getNomesetor());
-            
-        });
-        
+        List<FuncionarioDTO> funcionariosDTO = dao.buscarTodosFuncionarios();    
         
         return funcionariosDTO;
     }

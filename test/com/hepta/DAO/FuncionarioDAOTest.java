@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import com.hepta.funcionarios.dto.FuncionarioDTO;
 import com.hepta.funcionarios.entity.Funcionario;
 import com.hepta.funcionarios.entity.Setor;
 import com.hepta.funcionarios.persistence.FuncionarioDAO;
@@ -49,7 +50,7 @@ class FuncionarioDAOTest {
     @Order(2)
     void testBuscarFuncionarios() {
         //Act
-        List<Funcionario> result = funcionarioDAO.buscarTodosFuncionarios();
+        List<FuncionarioDTO> result = funcionarioDAO.buscarTodosFuncionarios();
         
         //Asserts
         assertFalse(result.isEmpty());

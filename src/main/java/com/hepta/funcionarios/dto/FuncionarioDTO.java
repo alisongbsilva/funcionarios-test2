@@ -17,6 +17,12 @@ public class FuncionarioDTO {
         this.idfuncionario = idFuncionario;
     }
     
+    public FuncionarioDTO(Integer idFuncionario, String nomeFuncionario, String nomeSetor) {
+        this.idfuncionario = idFuncionario;
+        this.nomefuncionario = nomeFuncionario;
+        this.nomesetor = nomeSetor;
+    }
+    
     public FuncionarioDTO(Funcionario funcionario) {
         this.idfuncionario = funcionario.getIdFuncionario();
         this.nomefuncionario = funcionario.getNomeFuncionario();
